@@ -1,0 +1,15 @@
+<svg width="220" height="52" viewBox="0 0 220 52" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+    <title id="title">ACCES EVENT</title>
+    <desc id="desc">Logo ACCES EVENT</desc>
+    <rect width="52" height="52" rx="8" fill="#043451"/>
+    <path d="M15 33.5L25.8 12.5H31.1L42 33.5H35.7L33.8 29.6H23.8L21.9 33.5H15ZM25.8 25H31.6L28.7 18.9L25.8 25Z" fill="#fc7016"/>
+    <path d="M17 39.5H40" stroke="#f4e3dd" stroke-width="3" stroke-linecap="round"/>
+    <path d="M70 16H86V21H76V25H85V30H76V36H70V16Z" fill="#043451"/>
+    <path d="M91 16H107V21H97V25H106V30H97V36H91V16Z" fill="#043451"/>
+    <path d="M112 16H118V36H112V16Z" fill="#043451"/>
+    <path d="M124 16H140V21H130V24H139V29H130V31H140.5V36H124V16Z" fill="#043451"/>
+    <path d="M146 16H153.2L161 27.4V16H166.8V36H160.4L151.8 23.6V36H146V16Z" fill="#043451"/>
+    <path d="M171 16H188V21H182.5V36H176.5V21H171V16Z" fill="#043451"/>
+    <path d="M70 44H188" stroke="#fc7016" stroke-width="4" stroke-linecap="round"/>
+    <text x="70" y="12" fill="#043451" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="700" letter-spacing="0">ACCES EVENT</text>
+</svg>
