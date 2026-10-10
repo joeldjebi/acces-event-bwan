@@ -23,45 +23,35 @@ return [
 
     // Familles de domaines (filtres de la page Solutions, suggestions sur la fiche).
     // Un domaine dont le slug n'est listé nulle part reste affiché, sans famille.
+    // Les noms des familles se modifient dans l'administration (Textes et images).
     'solution_groups' => [
         'vendre' => [
-            'label' => 'Vendre & encaisser',
             'slugs' => ['billetterie-360', 'paiements-digitaux', 'marketing-crm'],
         ],
         'controler' => [
-            'label' => 'Contrôler & sécuriser',
             'slugs' => ['controle-acces', 'accreditation', 'securite-surete-event', 'pass-parking'],
         ],
         'organiser' => [
-            'label' => 'Organiser le terrain',
             'slugs' => ['gestion-benevoles', 'signaletique-evenementielle', 'accessoiriste-evenement'],
         ],
         'developper' => [
-            'label' => 'Développer',
             'slugs' => ['baobaa', 'tourisme'],
         ],
     ],
 
     // Formats d'événements de l'accueil : domaines recommandés pour chacun (par slug).
+    // Les noms et textes des formats se modifient dans l'administration (Textes et images).
     'event_types' => [
         'concerts' => [
-            'label' => 'Concerts & festivals',
-            'text' => "Grandes jauges, plusieurs portes d'entrée et une forte affluence aux mêmes heures.",
             'slugs' => ['billetterie-360', 'controle-acces', 'paiements-digitaux', 'securite-surete-event'],
         ],
         'salons' => [
-            'label' => 'Salons & expositions',
-            'text' => "Exposants, visiteurs professionnels et rendez-vous d'affaires sur plusieurs jours.",
             'slugs' => ['accreditation', 'baobaa', 'billetterie-360', 'signaletique-evenementielle'],
         ],
         'sport' => [
-            'label' => 'Sport & stades',
-            'text' => 'Tribunes, zones à accès restreint, flux de véhicules et équipes nombreuses.',
             'slugs' => ['controle-acces', 'pass-parking', 'securite-surete-event', 'gestion-benevoles'],
         ],
         'institutions' => [
-            'label' => 'Conférences & institutions',
-            'text' => 'Invités, délégations, presse et protocole à accueillir dans les règles.',
             'slugs' => ['accreditation', 'controle-acces', 'accessoiriste-evenement', 'tourisme'],
         ],
     ],

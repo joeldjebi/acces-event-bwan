@@ -19,7 +19,10 @@ class HomeController extends Controller
             'solutionCount' => $solutions->count(),
             // Formats d'événements avec leurs domaines recommandés (ceux qui sont publiés).
             'eventTypes' => collect(config('accessevent.event_types'))
-                ->map(fn (array $type) => $type + [
+                ->map(fn (array $type, string $key) => [
+                    // Nom et texte modifiables dans l'administration (Textes et images › Formats d'événements).
+                    'label' => site_text("formats.{$key}_label"),
+                    'text' => site_text("formats.{$key}_text"),
                     'solutions' => $solutions->whereIn('slug', $type['slugs'])
                         ->sortBy(fn ($solution) => array_search($solution->slug, $type['slugs'], true))
                         ->values(),

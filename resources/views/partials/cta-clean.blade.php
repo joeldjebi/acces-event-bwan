@@ -1,9 +1,9 @@
 {{-- Appel à l'action épuré : centré, sur fond clair, un seul bouton orange. --}}
 <section class="cta-clean" data-reveal>
-    <p class="kicker">{{ $eyebrow ?? 'Démonstration' }}</p>
-    <h2>{{ $heading ?? "Vous organisez un événement\u{00A0}? Parlons-en." }}</h2>
+    <p class="kicker">{{ $eyebrow ?? site_text('common.cta_eyebrow') }}</p>
+    <h2>{{ $heading ?? site_text('common.cta_heading') }}</h2>
     @isset($text)
         <p>{{ $text }}</p>
     @endisset
-    <a href="{{ route('contact') }}" class="btn btn-primary">{{ $label ?? 'Demander une démonstration' }}</a>
+    <a href="{{ route('contact') }}" class="btn btn-primary">{{ $label ?? site_text('common.cta_button') }}</a>
 </section>

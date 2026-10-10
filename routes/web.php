@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\DemoRequestController as AdminDemoRequestControll
 use App\Http\Controllers\Admin\FooterSettingController as AdminFooterSettingController;
 use App\Http\Controllers\Admin\MediaAssetController as AdminMediaAssetController;
 use App\Http\Controllers\Admin\PlatformApplicationController as AdminPlatformApplicationController;
+use App\Http\Controllers\Admin\SiteContentController as AdminSiteContentController;
 use App\Http\Controllers\Admin\SitePageController as AdminSitePageController;
 use App\Http\Controllers\Admin\SolutionController as AdminSolutionController;
 use App\Http\Controllers\Admin\TechVideoController as AdminTechVideoController;
@@ -82,6 +83,9 @@ Route::middleware(['auth', 'admin', 'log.activity'])->prefix('admin')->name('adm
     Route::resource('applications', AdminPlatformApplicationController::class)->except('show');
     Route::resource('tech-videos', AdminTechVideoController::class)->except('show');
     Route::resource('pages', AdminSitePageController::class)->only(['index', 'edit', 'update']);
+    Route::get('/contents', [AdminSiteContentController::class, 'index'])->name('contents.index');
+    Route::get('/contents/{section}/edit', [AdminSiteContentController::class, 'edit'])->name('contents.edit');
+    Route::put('/contents/{section}', [AdminSiteContentController::class, 'update'])->name('contents.update');
     Route::resource('media', AdminMediaAssetController::class)->only(['index', 'store', 'destroy']);
     Route::resource('demo-requests', AdminDemoRequestController::class)->only(['index', 'show', 'update']);
     Route::get('/settings/footer', [AdminFooterSettingController::class, 'edit'])->name('settings.footer.edit');

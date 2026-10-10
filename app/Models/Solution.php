@@ -93,6 +93,6 @@ class Solution extends Model
 
     protected function groupLabel(): Attribute
     {
-        return Attribute::get(fn () => $this->group ? config("accessevent.solution_groups.{$this->group}.label") : null);
+        return Attribute::get(fn () => $this->group ? site_text("families.{$this->group}") : null);
     }
 }

@@ -733,6 +733,74 @@
         color: var(--color-ae-ink);
     }
 
+    /* Textes et images : liste des sections et champs */
+    .content-sections {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+        gap: 1rem;
+    }
+
+    .content-section-card {
+        display: grid;
+        gap: 0.4rem;
+        border: 1px solid var(--color-ae-line);
+        border-radius: 0.9rem;
+        background: white;
+        padding: 1.25rem;
+        text-decoration: none;
+        transition: border-color 200ms ease, transform 200ms ease;
+    }
+
+    .content-section-card:hover {
+        border-color: var(--color-ae-primary);
+        transform: translateY(-2px);
+    }
+
+    .content-section-card strong {
+        color: var(--color-ae-secondary);
+        font-size: 1.05rem;
+    }
+
+    .content-section-card span {
+        color: color-mix(in srgb, var(--color-ae-ink) 64%, white);
+        font-size: 0.88rem;
+        line-height: 1.5;
+    }
+
+    .content-section-card small {
+        margin-top: 0.35rem;
+        color: color-mix(in srgb, var(--color-ae-ink) 55%, white);
+        font-size: 0.8rem;
+    }
+
+    .content-section-card b {
+        color: var(--color-ae-primary);
+    }
+
+    .content-field label .status-pill {
+        margin-left: 0.5rem;
+        vertical-align: middle;
+    }
+
+    .content-field.is-custom .form-input {
+        border-color: color-mix(in srgb, var(--color-ae-primary) 45%, white);
+    }
+
+    .content-image-row {
+        display: grid;
+        grid-template-columns: 9rem minmax(0, 1fr);
+        gap: 1rem;
+        align-items: start;
+    }
+
+    .content-image-preview {
+        width: 9rem;
+        aspect-ratio: 16 / 10;
+        border: 1px solid var(--color-ae-line);
+        border-radius: 0.6rem;
+        object-fit: cover;
+    }
+
     /* Aperçu du logo sur fond clair et foncé */
     .brand-preview {
         display: grid;

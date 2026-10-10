@@ -35,6 +35,9 @@
                     <a href="{{ route('admin.pages.index') }}" @class(['is-active' => request()->routeIs('admin.pages.*')]) @if (request()->routeIs('admin.pages.*')) aria-current="page" @endif>
                         <span>Pages</span>
                     </a>
+                    <a href="{{ route('admin.contents.index') }}" @class(['is-active' => request()->routeIs('admin.contents.*')]) @if (request()->routeIs('admin.contents.*')) aria-current="page" @endif>
+                        <span>Textes et images</span>
+                    </a>
                     <a href="{{ route('admin.media.index') }}" @class(['is-active' => request()->routeIs('admin.media.*')]) @if (request()->routeIs('admin.media.*')) aria-current="page" @endif>
                         <span>Médias</span>
                     </a>

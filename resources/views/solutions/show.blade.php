@@ -3,7 +3,7 @@
     'metaDescription' => $solution->short_description,
     'canonicalUrl' => route('solutions.show', $solution),
     'ogType' => 'article',
-    'ogImage' => $solution->image_path ?: asset('images/hero/acces-event-hero.png'),
+    'ogImage' => $solution->image_path ?: site_image('common.og_image'),
     'bodyClass' => 'page-clean',
 ])
 
@@ -19,18 +19,18 @@
     <section class="sol-hero">
         <div class="sol-hero-copy hero-copy">
             <nav class="breadcrumb" aria-label="Fil d'Ariane">
-                <a href="{{ route('solutions.index') }}">Solutions</a>
+                <a href="{{ route('solutions.index') }}">{{ site_text('solution.breadcrumb') }}</a>
                 <span aria-hidden="true">/</span>
                 <span aria-current="page">{{ $solution->title }}</span>
             </nav>
-            <p class="kicker">Domaine {{ $number }} / {{ str_pad((string) $solutionCount, 2, '0', STR_PAD_LEFT) }}@if ($solution->groupLabel) · {{ $solution->groupLabel }}@endif</p>
+            <p class="kicker">{{ site_text('solution.kicker', ['number' => $number, 'total' => str_pad((string) $solutionCount, 2, '0', STR_PAD_LEFT)]) }}@if ($solution->groupLabel) · {{ $solution->groupLabel }}@endif</p>
             <h1>{{ $solution->title }}</h1>
             @if ($solution->subtitle || $solution->short_description)
                 <p class="sol-lead">{{ $solution->subtitle ?: $solution->short_description }}</p>
             @endif
             <div class="cta-row">
-                <a href="{{ route('contact') }}" class="btn btn-primary">Demander une démonstration</a>
-                <a href="{{ route('solutions.index') }}" class="arrow-link">Tous les domaines <span aria-hidden="true">→</span></a>
+                <a href="{{ route('contact') }}" class="btn btn-primary">{{ site_text('common.demo_button') }}</a>
+                <a href="{{ route('solutions.index') }}" class="arrow-link">{{ site_text('solution.all_link') }} <span aria-hidden="true">→</span></a>
             </div>
         </div>
     </section>
@@ -47,23 +47,23 @@
         <div class="sol-localnav-inner">
             <strong>{{ $solution->title }}</strong>
             <div class="sol-localnav-links">
-                <a href="#presentation">Présentation</a>
+                <a href="#presentation">{{ site_text('solution.nav_presentation') }}</a>
                 @if ($solution->tools->isNotEmpty())
-                    <a href="#outils">Outils</a>
+                    <a href="#outils">{{ site_text('solution.nav_tools') }}</a>
                 @endif
                 @if ($solution->benefits->isNotEmpty())
-                    <a href="#benefices">Bénéfices</a>
+                    <a href="#benefices">{{ site_text('solution.nav_benefits') }}</a>
                 @endif
-                <a href="#domaines-associes">Domaines associés</a>
+                <a href="#domaines-associes">{{ site_text('solution.nav_related') }}</a>
             </div>
-            <a href="{{ route('contact') }}" class="btn btn-primary">Démonstration</a>
+            <a href="{{ route('contact') }}" class="btn btn-primary">{{ site_text('common.header_cta') }}</a>
         </div>
     </nav>
 
     {{-- Présentation et encadré « en bref » --}}
     <section id="presentation" class="section-clean sol-overview">
         <article class="sol-prose" data-reveal>
-            <p class="kicker">Présentation</p>
+            <p class="kicker">{{ site_text('solution.presentation_kicker') }}</p>
             {{-- Le texte court n'est repris ici que s'il n'a pas déjà servi d'accroche dans l'en-tête. --}}
             @if ($solution->subtitle && $solution->short_description)
                 <p class="sol-prose-lead">{{ $solution->short_description }}</p>
@@ -74,9 +74,9 @@
 
             <dl class="sol-facts">
                 @foreach ([
-                    'Outils inclus' => $solution->tools->count(),
-                    'Applications connectées' => $solution->platformApplications->count(),
-                    'Bénéfices clés' => $solution->benefits->count(),
+                    site_text('solution.fact_tools') => $solution->tools->count(),
+                    site_text('solution.fact_apps') => $solution->platformApplications->count(),
+                    site_text('solution.fact_benefits') => $solution->benefits->count(),
                 ] as $label => $value)
                     @if ($value > 0)
                         <div>
@@ -90,7 +90,7 @@
 
         <aside class="sol-aside" data-reveal>
             @if ($solution->platformApplications->isNotEmpty())
-                <p class="sol-aside-title">Applications associées</p>
+                <p class="sol-aside-title">{{ site_text('solution.apps_title') }}</p>
                 <ul class="sol-app-list">
                     @foreach ($solution->platformApplications as $application)
                         <li>
@@ -107,8 +107,8 @@
                     @endforeach
                 </ul>
             @endif
-            <p class="sol-aside-text">Voyez {{ $solution->title }} en action sur un scénario proche de votre événement.</p>
-            <a href="{{ route('contact') }}" class="btn btn-primary">Demander une démonstration</a>
+            <p class="sol-aside-text">{{ site_text('solution.aside_text', ['title' => $solution->title]) }}</p>
+            <a href="{{ route('contact') }}" class="btn btn-primary">{{ site_text('common.demo_button') }}</a>
         </aside>
     </section>
 
@@ -117,8 +117,8 @@
         <section id="outils" class="section-clean">
             <header class="section-head" data-reveal>
                 <div>
-                    <p class="kicker">Outils inclus</p>
-                    <h2>Les outils qui font tourner {{ $solution->title }}.</h2>
+                    <p class="kicker">{{ site_text('solution.tools_kicker') }}</p>
+                    <h2>{{ site_text('solution.tools_heading', ['title' => $solution->title]) }}</h2>
                 </div>
             </header>
 
@@ -142,8 +142,8 @@
             <div class="band-dark-inner">
                 <header class="section-head" data-reveal>
                     <div>
-                        <p class="kicker">Bénéfices</p>
-                        <h2>Ce que {{ $solution->title }} apporte à votre opération.</h2>
+                        <p class="kicker">{{ site_text('solution.benefits_kicker') }}</p>
+                        <h2>{{ site_text('solution.benefits_heading', ['title' => $solution->title]) }}</h2>
                     </div>
                 </header>
 
@@ -169,10 +169,10 @@
         <section id="domaines-associes" class="section-clean">
             <header class="section-head" data-reveal>
                 <div>
-                    <p class="kicker">{{ $solution->groupLabel ? 'Dans le même univers' : 'À découvrir aussi' }}</p>
-                    <h2>Des domaines qui se combinent avec {{ $solution->title }}.</h2>
+                    <p class="kicker">{{ site_text($solution->groupLabel ? 'solution.related_kicker' : 'solution.related_kicker_other') }}</p>
+                    <h2>{{ site_text('solution.related_heading', ['title' => $solution->title]) }}</h2>
                 </div>
-                <a href="{{ route('solutions.index') }}" class="arrow-link">Tous les domaines <span aria-hidden="true">→</span></a>
+                <a href="{{ route('solutions.index') }}" class="arrow-link">{{ site_text('solution.all_link') }} <span aria-hidden="true">→</span></a>
             </header>
 
             <div class="sol-grid">
@@ -192,7 +192,7 @@
                             @if ($related->short_description)
                                 <p>{{ \Illuminate\Support\Str::limit($related->short_description, 110) }}</p>
                             @endif
-                            <span class="arrow-link">Découvrir <span aria-hidden="true">→</span></span>
+                            <span class="arrow-link">{{ site_text('common.more_link') }} <span aria-hidden="true">→</span></span>
                         </div>
                     </a>
                 @endforeach
@@ -210,7 +210,7 @@
                             <x-solution-media :solution="$previousSolution" />
                         </div>
                         <div class="sol-pager-text">
-                            <span>← Domaine précédent</span>
+                            <span>{{ site_text('solution.previous') }}</span>
                             <strong>{{ $previousSolution->title }}</strong>
                         </div>
                     </a>
@@ -221,7 +221,7 @@
                             <x-solution-media :solution="$nextSolution" />
                         </div>
                         <div class="sol-pager-text">
-                            <span>Domaine suivant →</span>
+                            <span>{{ site_text('solution.next') }}</span>
                             <strong>{{ $nextSolution->title }}</strong>
                         </div>
                     </a>
@@ -231,7 +231,7 @@
     @endif
 
     @include('partials.cta-clean', [
-        'heading' => 'Voir '.$solution->title."\u{00A0}sur votre événement\u{00A0}?",
-        'text' => 'Nous préparons une démonstration sur un scénario proche du vôtre.',
+        'heading' => site_text('solution.cta_heading', ['title' => $solution->title]),
+        'text' => site_text('solution.cta_text'),
     ])
 @endsection

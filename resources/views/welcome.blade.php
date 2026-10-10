@@ -18,8 +18,8 @@
             <h1>{{ $page->heading }}</h1>
             <p class="home-lead">{{ \Illuminate\Support\Str::limit($page->summary, 160) }}</p>
             <div class="cta-row">
-                <a href="{{ $page->cta_url ?: route('contact') }}" class="btn btn-primary">{{ $page->cta_label ?: 'Demander une démonstration' }}</a>
-                <a href="{{ route('solutions.index') }}" class="arrow-link">Découvrir nos solutions <span aria-hidden="true">→</span></a>
+                <a href="{{ $page->cta_url ?: route('contact') }}" class="btn btn-primary">{{ $page->cta_label ?: site_text('common.demo_button') }}</a>
+                <a href="{{ route('solutions.index') }}" class="arrow-link">{{ site_text('home.hero_link') }} <span aria-hidden="true">→</span></a>
             </div>
         </div>
         <a href="#scene" class="scroll-cue" aria-label="Découvrir la suite">
@@ -32,69 +32,73 @@
     <section id="scene" class="showcase home-showcase" data-scroll-scale>
         <figure class="showcase-frame" data-tilt>
             <div class="showcase-media">
-                <img src="{{ asset('images/hero/acces-event-hero.png') }}" alt="Contrôle d'accès événementiel et billetterie digitale ACCÈS EVENT" width="1568" height="1003">
+                <img src="{{ site_image('home.scene_image') }}" alt="{{ site_text('home.scene_alt') }}" width="1568" height="1003">
+                {{-- Les points sont placés sur la photo d'origine : masqués si une autre photo est mise en ligne. --}}
+                @unless (\App\Support\SiteContent::isCustom('home.scene_image'))
                 <div @class(['hotspot', 'is-left' => false]) style="--x: 60.3%; --y: 61.8%">
                     <button type="button" class="hotspot-dot" aria-expanded="false" aria-controls="hotspot-billet">
-                        <span class="sr-only">Billet mobile</span>
+                        <span class="sr-only">{{ site_text('home.hotspot_1_title') }}</span>
                     </button>
                     <div class="hotspot-card" id="hotspot-billet">
-                        <strong>Billet mobile</strong>
-                        <p>Le billet QR du smartphone est scanné et validé à l'entrée, en un geste.</p>
-                        <a href="{{ route('solutions.show', 'billetterie-360') }}" class="arrow-link">En savoir plus <span aria-hidden="true">→</span></a>
+                        <strong>{{ site_text('home.hotspot_1_title') }}</strong>
+                        <p>{{ site_text('home.hotspot_1_text') }}</p>
+                        <a href="{{ route('solutions.show', 'billetterie-360') }}" class="arrow-link">{{ site_text('home.hotspot_link') }} <span aria-hidden="true">→</span></a>
                     </div>
                 </div>
                 <div @class(['hotspot', 'is-left' => false]) style="--x: 14.7%; --y: 70.3%">
                     <button type="button" class="hotspot-dot" aria-expanded="false" aria-controls="hotspot-acces">
-                        <span class="sr-only">Contrôle d'accès</span>
+                        <span class="sr-only">{{ site_text('home.hotspot_2_title') }}</span>
                     </button>
                     <div class="hotspot-card" id="hotspot-acces">
-                        <strong>Contrôle d'accès</strong>
-                        <p>Tourniquets connectés : chaque passage est autorisé ou refusé en temps réel.</p>
-                        <a href="{{ route('solutions.show', 'controle-acces') }}" class="arrow-link">En savoir plus <span aria-hidden="true">→</span></a>
+                        <strong>{{ site_text('home.hotspot_2_title') }}</strong>
+                        <p>{{ site_text('home.hotspot_2_text') }}</p>
+                        <a href="{{ route('solutions.show', 'controle-acces') }}" class="arrow-link">{{ site_text('home.hotspot_link') }} <span aria-hidden="true">→</span></a>
                     </div>
                 </div>
                 <div @class(['hotspot', 'is-left' => false]) style="--x: 50.1%; --y: 48.7%">
                     <button type="button" class="hotspot-dot" aria-expanded="false" aria-controls="hotspot-equipes">
-                        <span class="sr-only">Équipes terrain</span>
+                        <span class="sr-only">{{ site_text('home.hotspot_3_title') }}</span>
                     </button>
                     <div class="hotspot-card" id="hotspot-equipes">
-                        <strong>Équipes terrain</strong>
-                        <p>Superviseurs et contrôleurs équipés, affectations et consignes à jour sur tablette.</p>
-                        <a href="{{ route('solutions.show', 'gestion-benevoles') }}" class="arrow-link">En savoir plus <span aria-hidden="true">→</span></a>
+                        <strong>{{ site_text('home.hotspot_3_title') }}</strong>
+                        <p>{{ site_text('home.hotspot_3_text') }}</p>
+                        <a href="{{ route('solutions.show', 'gestion-benevoles') }}" class="arrow-link">{{ site_text('home.hotspot_link') }} <span aria-hidden="true">→</span></a>
                     </div>
                 </div>
                 <div @class(['hotspot', 'is-left' => true]) style="--x: 82.3%; --y: 25.4%">
                     <button type="button" class="hotspot-dot" aria-expanded="false" aria-controls="hotspot-supervision">
-                        <span class="sr-only">Supervision en direct</span>
+                        <span class="sr-only">{{ site_text('home.hotspot_4_title') }}</span>
                     </button>
                     <div class="hotspot-card" id="hotspot-supervision">
-                        <strong>Supervision en direct</strong>
-                        <p>Entrées, ventes et recettes suivies zone par zone sur un tableau de bord unique.</p>
-                        <a href="{{ route('solutions.index') }}" class="arrow-link">En savoir plus <span aria-hidden="true">→</span></a>
+                        <strong>{{ site_text('home.hotspot_4_title') }}</strong>
+                        <p>{{ site_text('home.hotspot_4_text') }}</p>
+                        <a href="{{ route('solutions.index') }}" class="arrow-link">{{ site_text('home.hotspot_link') }} <span aria-hidden="true">→</span></a>
                     </div>
                 </div>
                 <div @class(['hotspot', 'is-left' => true]) style="--x: 73.9%; --y: 78.8%">
                     <button type="button" class="hotspot-dot" aria-expanded="false" aria-controls="hotspot-accreditation">
-                        <span class="sr-only">Accréditation</span>
+                        <span class="sr-only">{{ site_text('home.hotspot_5_title') }}</span>
                     </button>
                     <div class="hotspot-card" id="hotspot-accreditation">
-                        <strong>Accréditation</strong>
-                        <p>Badges nominatifs avec des droits d'accès par zone pour le staff, la presse et les VIP.</p>
-                        <a href="{{ route('solutions.show', 'accreditation') }}" class="arrow-link">En savoir plus <span aria-hidden="true">→</span></a>
+                        <strong>{{ site_text('home.hotspot_5_title') }}</strong>
+                        <p>{{ site_text('home.hotspot_5_text') }}</p>
+                        <a href="{{ route('solutions.show', 'accreditation') }}" class="arrow-link">{{ site_text('home.hotspot_link') }} <span aria-hidden="true">→</span></a>
                     </div>
                 </div>
+                @endunless
             </div>
             <div class="showcase-glare" aria-hidden="true"></div>
             <figcaption class="home-floating">
+                @php($feed = array_values(array_filter(array_map('trim', preg_split('/\R/', site_text('home.live_feed'))))))
                 <span class="home-chip home-chip-1" aria-hidden="true">
                     <span class="home-live-dot"></span>
-                    <span data-live-feed="Billet scanné · Porte A|Paiement mobile accepté|Badge VIP vérifié · Zone B|Entrée validée · Tribune Nord|Accès refusé · billet déjà utilisé">Billet scanné · Porte A</span>
+                    <span data-live-feed="{{ implode('|', $feed) }}">{{ $feed[0] ?? '' }}</span>
                 </span>
-                <span class="home-chip home-chip-2">Paiement mobile accepté</span>
-                <span class="home-chip home-chip-3">Zone VIP · accès autorisé</span>
+                <span class="home-chip home-chip-2">{{ site_text('home.chip_2') }}</span>
+                <span class="home-chip home-chip-3">{{ site_text('home.chip_3') }}</span>
             </figcaption>
         </figure>
-        <p class="showcase-hint" aria-hidden="true"><span class="hint-hover">Survolez</span><span class="hint-touch">Touchez</span> les points pour explorer la scène</p>
+        <p class="showcase-hint" aria-hidden="true"><span class="hint-hover">{{ site_text('home.scene_hint_hover') }}</span><span class="hint-touch">{{ site_text('home.scene_hint_touch') }}</span> {{ site_text('home.scene_hint') }}</p>
     </section>
 
     {{-- 3. Manifeste : les mots s'illuminent au fil du défilement --}}
@@ -107,15 +111,15 @@
     <section class="big-figures" aria-label="ACCÈS EVENT en chiffres">
         <div data-reveal>
             <strong data-count-to="{{ $solutionCount }}">{{ $solutionCount }}</strong>
-            <span>domaines métier</span>
+            <span>{{ site_text('home.figure_1') }}</span>
         </div>
         <div data-reveal style="--reveal-delay: 100ms">
             <strong data-count-to="{{ $applications->count() }}">{{ $applications->count() }}</strong>
-            <span>applications connectées</span>
+            <span>{{ site_text('home.figure_2') }}</span>
         </div>
         <div data-reveal style="--reveal-delay: 200ms">
             <strong>1</strong>
-            <span>administration unique</span>
+            <span>{{ site_text('home.figure_3') }}</span>
         </div>
     </section>
 
@@ -123,11 +127,11 @@
     <section id="solutions" class="home-domains">
         <header class="home-domains-head section-head" data-reveal>
             <div>
-                <p class="kicker">Domaines d'activité</p>
-                <h2>Une suite modulaire, une seule administration.</h2>
+                <p class="kicker">{{ site_text('home.domains_kicker') }}</p>
+                <h2>{{ site_text('home.domains_heading') }}</h2>
             </div>
             <div class="home-carousel-controls">
-                <a href="{{ route('solutions.index') }}" class="arrow-link">Voir les {{ $solutionCount }} domaines <span aria-hidden="true">→</span></a>
+                <a href="{{ route('solutions.index') }}" class="arrow-link">{{ site_text('home.domains_link', ['count' => $solutionCount]) }} <span aria-hidden="true">→</span></a>
                 <button type="button" class="carousel-btn" data-carousel-prev aria-label="Domaines précédents">←</button>
                 <button type="button" class="carousel-btn" data-carousel-next aria-label="Domaines suivants">→</button>
             </div>
@@ -146,7 +150,7 @@
                     </div>
                 </a>
             @empty
-                <p class="home-empty">Les domaines d'activité seront affichés ici depuis l'administration.</p>
+                <p class="home-empty">{{ site_text('home.domains_empty') }}</p>
             @endforelse
         </div>
     </section>
@@ -156,10 +160,10 @@
         <section class="section-clean event-types">
             <header class="section-head" data-reveal>
                 <div>
-                    <p class="kicker">Pour chaque format</p>
-                    <h2>Quel que soit votre événement, les bons modules.</h2>
+                    <p class="kicker">{{ site_text('home.formats_kicker') }}</p>
+                    <h2>{{ site_text('home.formats_heading') }}</h2>
                 </div>
-                <p>Choisissez votre format : voici les domaines que nous activons le plus souvent.</p>
+                <p>{{ site_text('home.formats_text') }}</p>
             </header>
 
             <div class="event-tabs" data-tabs>
@@ -198,8 +202,8 @@
     <section class="section-clean home-method">
         <header class="section-head" data-reveal>
             <div>
-                <p class="kicker">Exécution terrain</p>
-                <h2>Une opération fluide, du paramétrage au reporting.</h2>
+                <p class="kicker">{{ site_text('home.method_kicker') }}</p>
+                <h2>{{ site_text('home.method_heading') }}</h2>
             </div>
         </header>
 
@@ -207,22 +211,22 @@
             <li data-reveal>
                 <span>01</span>
                 <div>
-                    <h3>Préparer</h3>
-                    <p>Billetterie, zones d'accès, accréditations et équipes paramétrées avant l'ouverture.</p>
+                    <h3>{{ site_text('home.step_1_title') }}</h3>
+                    <p>{{ site_text('home.step_1_text') }}</p>
                 </div>
             </li>
             <li data-reveal>
                 <span>02</span>
                 <div>
-                    <h3>Opérer</h3>
-                    <p>Contrôle des entrées, paiements et sécurité suivis en temps réel le jour J.</p>
+                    <h3>{{ site_text('home.step_2_title') }}</h3>
+                    <p>{{ site_text('home.step_2_text') }}</p>
                 </div>
             </li>
             <li data-reveal>
                 <span>03</span>
                 <div>
-                    <h3>Analyser</h3>
-                    <p>Ventes, fréquentation et recettes consolidées dans un seul tableau de bord.</p>
+                    <h3>{{ site_text('home.step_3_title') }}</h3>
+                    <p>{{ site_text('home.step_3_text') }}</p>
                 </div>
             </li>
         </ol>
@@ -232,10 +236,10 @@
     <section id="ecosysteme" class="home-ecosystem">
         <div class="home-ecosystem-inner">
             <header data-reveal>
-                <p class="kicker">Écosystème applicatif</p>
-                <h2>Des applications connectées, une vision unique.</h2>
+                <p class="kicker">{{ site_text('home.ecosystem_kicker') }}</p>
+                <h2>{{ site_text('home.ecosystem_heading') }}</h2>
             </header>
-            <a href="{{ route('ecosystem') }}" class="arrow-link" data-reveal>Explorer l'écosystème <span aria-hidden="true">→</span></a>
+            <a href="{{ route('ecosystem') }}" class="arrow-link" data-reveal>{{ site_text('home.ecosystem_link') }} <span aria-hidden="true">→</span></a>
         </div>
 
         @php($half = (int) ceil($applications->count() / 2))
@@ -260,15 +264,15 @@
                 <span></span>
                 <span></span>
             </div>
-            <p class="kicker">Démonstration</p>
-            <h2>Vous organisez un événement&nbsp;? Parlons-en.</h2>
-            <p class="home-final-text">Présentez-nous votre dispositif : nous vous montrons les modules utiles sur un scénario proche du vôtre.</p>
+            <p class="kicker">{{ site_text('home.final_kicker') }}</p>
+            <h2>{{ site_text('home.final_heading') }}</h2>
+            <p class="home-final-text">{{ site_text('home.final_text') }}</p>
             <div class="cta-row">
-                <a href="{{ route('contact') }}" class="btn btn-primary">Demander une démonstration</a>
+                <a href="{{ route('contact') }}" class="btn btn-primary">{{ site_text('common.demo_button') }}</a>
                 @if ($footerSettings['footer_whatsapp'])
                     <a href="https://wa.me/{{ preg_replace('/\D/', '', $footerSettings['footer_whatsapp']) }}" target="_blank" rel="noopener" class="btn btn-glass">
                         <x-icon name="chat" />
-                        Écrire sur WhatsApp
+                        {{ site_text('home.final_whatsapp') }}
                     </a>
                 @endif
             </div>

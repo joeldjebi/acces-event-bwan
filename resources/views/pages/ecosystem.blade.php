@@ -13,8 +13,8 @@
             <h1>{{ $page->heading }}</h1>
             <p class="sol-lead">{{ \Illuminate\Support\Str::limit($page->summary, 170) }}</p>
             <div class="cta-row">
-                <a href="{{ route('contact') }}" class="btn btn-primary">Demander une architecture</a>
-                <a href="#applications" class="arrow-link">Explorer les applications <span aria-hidden="true">↓</span></a>
+                <a href="{{ route('contact') }}" class="btn btn-primary">{{ site_text('ecosystem.button') }}</a>
+                <a href="#applications" class="arrow-link">{{ site_text('ecosystem.link') }} <span aria-hidden="true">↓</span></a>
             </div>
         </div>
     </section>
@@ -44,7 +44,7 @@
 
             <div class="hub-core" aria-hidden="true">
                 <img src="{{ \App\Models\SiteSetting::logoUrl() }}" alt="">
-                <span>Système central</span>
+                <span>{{ site_text('ecosystem.hub_core') }}</span>
             </div>
         </div>
     </section>
@@ -53,21 +53,21 @@
     <section id="applications" class="section-clean">
         <header class="section-head" data-reveal>
             <div>
-                <p class="kicker">Applications</p>
-                <h2>Une plateforme composée pour chaque équipe terrain.</h2>
+                <p class="kicker">{{ site_text('ecosystem.apps_kicker') }}</p>
+                <h2>{{ site_text('ecosystem.apps_heading') }}</h2>
             </div>
-            <p>{{ $applications->count() }} applications qui partagent les mêmes données, les mêmes droits et la même administration.</p>
+            <p>{{ site_text('ecosystem.apps_text', ['count' => $applications->count()]) }}</p>
         </header>
 
         <div class="sol-filters" role="group" aria-label="Filtrer les applications par famille" data-filter-group>
             <button type="button" class="is-active" data-filter="all" aria-pressed="true">
-                Toutes <span>{{ $applications->count() }}</span>
+                {{ site_text('families.all_applications') }} <span>{{ $applications->count() }}</span>
             </button>
             @foreach (config('accessevent.solution_groups') as $key => $group)
                 @php($groupCount = $applications->filter(fn ($application) => in_array($key, $application->groups(), true))->count())
                 @if ($groupCount > 0)
                     <button type="button" data-filter="{{ $key }}" aria-pressed="false">
-                        {{ $group['label'] }} <span>{{ $groupCount }}</span>
+                        {{ site_text("families.{$key}") }} <span>{{ $groupCount }}</span>
                     </button>
                 @endif
             @endforeach
@@ -107,7 +107,7 @@
         <div class="band-dark-inner">
             <header class="section-head" data-reveal>
                 <div>
-                    <p class="kicker">Interopérabilité</p>
+                    <p class="kicker">{{ site_text('ecosystem.interop_kicker') }}</p>
                     <h2>{{ $page->cta_label ?: 'Une seule donnée, partout, en temps réel.' }}</h2>
                 </div>
                 @if ($page->body)
@@ -118,27 +118,27 @@
             <ul class="feature-cards">
                 <li data-reveal>
                     <x-icon name="sync" />
-                    <h3>Données synchronisées</h3>
-                    <p>Titres, droits et passages partagés entre toutes les applications.</p>
+                    <h3>{{ site_text('ecosystem.feature_1_title') }}</h3>
+                    <p>{{ site_text('ecosystem.feature_1_text') }}</p>
                 </li>
                 <li data-reveal style="--reveal-delay: 90ms">
                     <x-icon name="bolt" />
-                    <h3>Opérations temps réel</h3>
-                    <p>Ventes, entrées et recettes remontent au fil de l'événement.</p>
+                    <h3>{{ site_text('ecosystem.feature_2_title') }}</h3>
+                    <p>{{ site_text('ecosystem.feature_2_text') }}</p>
                 </li>
                 <li data-reveal style="--reveal-delay: 180ms">
                     <x-icon name="layers" />
-                    <h3>Administration unique</h3>
-                    <p>Un seul back office pour paramétrer et piloter l'ensemble.</p>
+                    <h3>{{ site_text('ecosystem.feature_3_title') }}</h3>
+                    <p>{{ site_text('ecosystem.feature_3_text') }}</p>
                 </li>
             </ul>
         </div>
     </section>
 
     @include('partials.cta-clean', [
-        'eyebrow' => 'Sur mesure',
-        'heading' => "Votre besoin n'est pas listé\u{00A0}?",
-        'text' => 'Nos applications se combinent et s\'adaptent à votre dispositif terrain.',
-        'label' => 'Parlons-en',
+        'eyebrow' => site_text('ecosystem.cta_eyebrow'),
+        'heading' => site_text('ecosystem.cta_heading'),
+        'text' => site_text('ecosystem.cta_text'),
+        'label' => site_text('ecosystem.cta_button'),
     ])
 @endsection

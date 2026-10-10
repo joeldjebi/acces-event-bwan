@@ -35,6 +35,7 @@ class LogAdminActivity
         'admin.demo-requests.update' => 'a mis à jour la demande de',
         'admin.settings.footer.update' => 'a modifié le pied de page',
         'admin.settings.brand.update' => 'a modifié le logo du site',
+        'admin.contents.update' => 'a modifié les textes et images de la section',
         'admin.users.store' => "a créé l'administrateur",
         'admin.users.update' => "a modifié l'administrateur",
         'admin.users.destroy' => "a supprimé l'administrateur",
@@ -85,6 +86,12 @@ class LogAdminActivity
             if (is_string($value) && $value !== '') {
                 return '« '.$value.' »';
             }
+        }
+
+        // Section de « Textes et images » (paramètre de route, pas un modèle).
+        $section = $request->route('section');
+        if (is_string($section) && is_string(config("site_content.{$section}.label"))) {
+            return '« '.config("site_content.{$section}.label").' »';
         }
 
         return $subject ? '#'.$subject->getKey() : '';

@@ -1,6 +1,6 @@
 @extends('layouts.public', [
-    'title' => 'Solutions',
-    'metaDescription' => 'Les '.$solutions->count().' domaines ACCÈS EVENT pour la billetterie, le contrôle, les paiements et la sécurité événementielle.',
+    'title' => site_text('solutions.seo_title'),
+    'metaDescription' => site_text('solutions.seo_description', ['count' => $solutions->count()]),
     'canonicalUrl' => route('solutions.index'),
     'bodyClass' => 'page-clean',
 ])
@@ -9,12 +9,12 @@
     {{-- En-tête centré --}}
     <section class="page-intro">
         <div class="page-intro-copy hero-copy">
-            <p class="kicker">Solutions</p>
-            <h1>Une suite intégrée pour piloter tout votre événement.</h1>
-            <p class="sol-lead">Des modules métier connectés pour vendre, contrôler, encaisser, accréditer et superviser vos opérations terrain.</p>
+            <p class="kicker">{{ site_text('solutions.kicker') }}</p>
+            <h1>{{ site_text('solutions.heading') }}</h1>
+            <p class="sol-lead">{{ site_text('solutions.lead') }}</p>
             <div class="cta-row">
-                <a href="{{ route('contact') }}" class="btn btn-primary">Demander une démonstration</a>
-                <a href="#catalogue" class="arrow-link">Parcourir le catalogue <span aria-hidden="true">↓</span></a>
+                <a href="{{ route('contact') }}" class="btn btn-primary">{{ site_text('common.demo_button') }}</a>
+                <a href="#catalogue" class="arrow-link">{{ site_text('solutions.catalog_link') }} <span aria-hidden="true">↓</span></a>
             </div>
         </div>
     </section>
@@ -42,15 +42,15 @@
     {{-- Chiffres clés, en une ligne --}}
     <dl class="sol-stats">
         <div>
-            <dt>domaines métier</dt>
+            <dt>{{ site_text('solutions.stat_1') }}</dt>
             <dd>{{ $solutions->count() }}</dd>
         </div>
         <div>
-            <dt>applications connectées</dt>
+            <dt>{{ site_text('solutions.stat_2') }}</dt>
             <dd>{{ $applicationCount }}</dd>
         </div>
         <div>
-            <dt>administration unique</dt>
+            <dt>{{ site_text('solutions.stat_3') }}</dt>
             <dd>1</dd>
         </div>
     </dl>
@@ -59,22 +59,22 @@
     <section id="catalogue" class="section-clean sol-catalog">
         <header class="section-head" data-reveal>
             <div>
-                <p class="kicker">Catalogue</p>
-                <h2>Choisissez les briques utiles à votre dispositif.</h2>
+                <p class="kicker">{{ site_text('solutions.catalog_kicker') }}</p>
+                <h2>{{ site_text('solutions.catalog_heading') }}</h2>
             </div>
-            <p>Chaque domaine fonctionne seul ou avec l'ensemble de l'écosystème, sur la même administration.</p>
+            <p>{{ site_text('solutions.catalog_text') }}</p>
         </header>
 
         {{-- Filtres par famille : les cartes non concernées s'effacent, sans rechargement. --}}
         <div class="sol-filters" role="group" aria-label="Filtrer les domaines par famille" data-filter-group>
             <button type="button" class="is-active" data-filter="all" aria-pressed="true">
-                Tous <span>{{ $solutions->count() }}</span>
+                {{ site_text('families.all_solutions') }} <span>{{ $solutions->count() }}</span>
             </button>
             @foreach (config('accessevent.solution_groups') as $key => $group)
                 @php($groupCount = $solutions->where('group', $key)->count())
                 @if ($groupCount > 0)
                     <button type="button" data-filter="{{ $key }}" aria-pressed="false">
-                        {{ $group['label'] }} <span>{{ $groupCount }}</span>
+                        {{ site_text("families.{$key}") }} <span>{{ $groupCount }}</span>
                     </button>
                 @endif
             @endforeach
@@ -98,7 +98,7 @@
                         @if ($solution->short_description)
                             <p>{{ \Illuminate\Support\Str::limit($solution->short_description, $loop->first ? 200 : 120) }}</p>
                         @endif
-                        <span class="arrow-link">Découvrir <span aria-hidden="true">→</span></span>
+                        <span class="arrow-link">{{ site_text('common.more_link') }} <span aria-hidden="true">→</span></span>
                     </div>
                 </a>
             @endforeach
@@ -106,9 +106,9 @@
     </section>
 
     @include('partials.cta-clean', [
-        'eyebrow' => 'Sur mesure',
-        'heading' => "Plusieurs domaines vous intéressent\u{00A0}?",
-        'text' => 'Nous assemblons les briques adaptées à votre événement et à votre budget.',
-        'label' => 'Composer ma solution',
+        'eyebrow' => site_text('solutions.cta_eyebrow'),
+        'heading' => site_text('solutions.cta_heading'),
+        'text' => site_text('solutions.cta_text'),
+        'label' => site_text('solutions.cta_button'),
     ])
 @endsection
