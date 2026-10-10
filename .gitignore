@@ -31,3 +31,6 @@ Thumbs.db
 
 # Archives de déploiement générées
 *.zip
+
+# Exports de base de données (données personnelles)
+*.sql
