@@ -14,7 +14,7 @@
         <div class="admin-shell">
             <aside class="admin-sidebar">
                 <a href="{{ route('admin.dashboard') }}" class="admin-brand" aria-label="Administration {{ config('accessevent.brand.name') }}">
-                    <img src="{{ asset('images/logo/accesslogo.png') }}" alt="">
+                    <img src="{{ \App\Models\SiteSetting::logoUrl() }}" alt="">
                     <span>Administration</span>
                 </a>
 
@@ -45,6 +45,17 @@
                     <a href="{{ route('admin.settings.footer.edit') }}" @class(['is-active' => request()->routeIs('admin.settings.footer.*')]) @if (request()->routeIs('admin.settings.footer.*')) aria-current="page" @endif>
                         <span>Pied de page</span>
                     </a>
+                    <a href="{{ route('admin.settings.brand.edit') }}" @class(['is-active' => request()->routeIs('admin.settings.brand.*')]) @if (request()->routeIs('admin.settings.brand.*')) aria-current="page" @endif>
+                        <span>Logo</span>
+                    </a>
+                    <a href="{{ route('admin.users.index') }}" @class(['is-active' => request()->routeIs('admin.users.*')]) @if (request()->routeIs('admin.users.*')) aria-current="page" @endif>
+                        <span>Administrateurs</span>
+                    </a>
+                    @if (auth()->user()->isOwner())
+                        <a href="{{ route('admin.activity.index') }}" @class(['is-active' => request()->routeIs('admin.activity.*')]) @if (request()->routeIs('admin.activity.*')) aria-current="page" @endif>
+                            <span>Journal d'activité</span>
+                        </a>
+                    @endif
                 </nav>
             </aside>
 

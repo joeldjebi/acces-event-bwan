@@ -43,7 +43,7 @@
             </div>
 
             <div class="hub-core" aria-hidden="true">
-                <img src="{{ asset('images/logo/accesslogo.png') }}" alt="">
+                <img src="{{ \App\Models\SiteSetting::logoUrl() }}" alt="">
                 <span>Système central</span>
             </div>
         </div>

@@ -27,7 +27,7 @@
             <header class="site-header-wrap">
                 <div class="site-header">
                     <a href="{{ route('home') }}" class="brand-lockup" aria-label="{{ config('accessevent.brand.name') }}">
-                        <img src="{{ asset('images/logo/accesslogo.png') }}" alt="" class="brand-image">
+                        <img src="{{ \App\Models\SiteSetting::logoUrl() }}" alt="" class="brand-image">
 
                     </a>
 
@@ -56,7 +56,7 @@
                 <div class="footer-main">
                     <div class="footer-brand">
                         <a href="{{ route('home') }}" class="brand-lockup footer-logo" aria-label="{{ config('accessevent.brand.name') }}">
-                            <img src="{{ asset('images/logo/accesslogo.png') }}" alt="" class="brand-image">
+                            <img src="{{ \App\Models\SiteSetting::logoUrl() }}" alt="" class="brand-image">
                         </a>
                         <p>{{ $footerSettings['footer_tagline'] }}</p>
                     </div>

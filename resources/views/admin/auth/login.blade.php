@@ -13,7 +13,7 @@
     <body class="auth-page antialiased">
         <main class="auth-card">
             <a href="{{ route('home') }}" class="brand-lockup" aria-label="{{ config('accessevent.brand.name') }}">
-                <img src="{{ asset('images/logo/accesslogo.png') }}" alt="" class="h-14 w-auto rounded">
+                <img src="{{ \App\Models\SiteSetting::logoUrl() }}" alt="" class="h-14 w-auto rounded">
                 <span class="sr-only">{{ config('accessevent.brand.name') }}</span>
             </a>
 

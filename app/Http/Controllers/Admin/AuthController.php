@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ActivityLog;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,8 @@ class AuthController extends Controller
         $remember = $request->boolean('remember');
 
         if (! Auth::attempt($credentials, $remember)) {
+            ActivityLog::record($request, null, 'auth.failed', 'Échec de connexion pour « '.$credentials['email'].' »');
+
             throw ValidationException::withMessages([
                 'email' => 'Les identifiants fournis sont incorrects.',
             ]);
@@ -38,6 +41,7 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
         if (! $request->user()->isAdmin()) {
+            ActivityLog::record($request, $request->user(), 'auth.denied', "Connexion refusée : ce compte n'a pas les droits d'administration");
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
@@ -46,6 +50,8 @@ class AuthController extends Controller
                 'email' => "Ce compte ne dispose pas des droits d'administration.",
             ]);
         }
+
+        ActivityLog::record($request, $request->user(), 'auth.login', "s'est connecté");
 
         return redirect()->intended(route('admin.dashboard'));
     }

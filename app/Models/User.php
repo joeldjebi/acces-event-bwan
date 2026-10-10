@@ -27,11 +27,21 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_owner' => 'boolean',
         ];
     }
 
     public function isAdmin(): bool
     {
         return in_array($this->role, ['admin', 'editor'], true);
+    }
+
+    /**
+     * Premier administrateur : ne peut pas être supprimé, et seul à consulter le journal d'activité.
+     * Volontairement absent de Fillable : il ne se modifie pas depuis un formulaire.
+     */
+    public function isOwner(): bool
+    {
+        return $this->is_owner === true;
     }
 }

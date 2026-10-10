@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Once;
 
 class SiteSetting extends Model
 {
@@ -71,5 +72,34 @@ class SiteSetting extends Model
                     'value' => $value,
                 ]);
             });
+    }
+
+    /**
+     * Logo par défaut, livré avec le site.
+     */
+    public const DEFAULT_LOGO = 'images/logo/accesslogo.png';
+
+    /**
+     * Adresse du logo affiché sur le site : celui envoyé depuis l'administration, sinon le logo d'origine.
+     * Mémorisé pour la requête, le logo apparaissant plusieurs fois par page.
+     */
+    public static function logoUrl(): string
+    {
+        return once(fn () => (string) (self::query()->where('key', 'site_logo')->value('value')
+            ?: asset(self::DEFAULT_LOGO)));
+    }
+
+    /**
+     * Chemin public du logo envoyé depuis l'administration, ou null pour le logo d'origine.
+     */
+    public static function uploadedLogo(): ?string
+    {
+        return self::query()->where('key', 'site_logo')->value('value') ?: null;
+    }
+
+    public static function updateLogo(?string $path): void
+    {
+        self::query()->updateOrCreate(['key' => 'site_logo'], ['value' => $path]);
+        Once::flush();
     }
 }

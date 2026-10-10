@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\ActivityLogController as AdminActivityLogController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\BrandSettingController as AdminBrandSettingController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\DemoRequestController as AdminDemoRequestController;
 use App\Http\Controllers\Admin\FooterSettingController as AdminFooterSettingController;
@@ -9,6 +11,7 @@ use App\Http\Controllers\Admin\PlatformApplicationController as AdminPlatformApp
 use App\Http\Controllers\Admin\SitePageController as AdminSitePageController;
 use App\Http\Controllers\Admin\SolutionController as AdminSolutionController;
 use App\Http\Controllers\Admin\TechVideoController as AdminTechVideoController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\DemoRequestController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PublicPageController;
@@ -72,7 +75,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/admin/login', [AuthController::class, 'login'])->middleware('throttle:admin-login')->name('admin.login.store');
 });
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'admin', 'log.activity'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', AdminDashboardController::class)->name('dashboard');
 
     Route::resource('solutions', AdminSolutionController::class)->except('show');
@@ -83,5 +86,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('demo-requests', AdminDemoRequestController::class)->only(['index', 'show', 'update']);
     Route::get('/settings/footer', [AdminFooterSettingController::class, 'edit'])->name('settings.footer.edit');
     Route::put('/settings/footer', [AdminFooterSettingController::class, 'update'])->name('settings.footer.update');
+    Route::get('/settings/brand', [AdminBrandSettingController::class, 'edit'])->name('settings.brand.edit');
+    Route::put('/settings/brand', [AdminBrandSettingController::class, 'update'])->name('settings.brand.update');
+    Route::resource('users', AdminUserController::class)->except('show');
+    Route::get('/activity', [AdminActivityLogController::class, 'index'])->middleware('owner')->name('activity.index');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

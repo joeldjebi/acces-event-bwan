@@ -19,13 +19,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::query()->updateOrCreate([
+        $admin = User::query()->updateOrCreate([
             'email' => 'admin@acces-event.test',
         ], [
             'name' => 'Administrateur ACCÈS EVENT',
             'password' => 'password',
             'role' => 'admin',
         ]);
+
+        // Le premier administrateur est le propriétaire, sauf si un propriétaire existe déjà.
+        if (! User::query()->where('is_owner', true)->exists()) {
+            $admin->forceFill(['is_owner' => true])->save();
+        }
 
         $this->seedSolutions();
         $this->seedApplications();
