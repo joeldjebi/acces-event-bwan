@@ -408,3 +408,8 @@ it('lets an admin manage public footer settings', function () {
         ->assertSee('footer@example.com')
         ->assertSee('Mention footer test');
 });
+
+it('redirects the phpmyadmin shortcuts to the cPanel login', function () {
+    $this->get('/phpmyadmin')->assertRedirect('https://localhost:2083');
+    $this->get('/phpmysql')->assertRedirect('https://localhost:2083');
+});

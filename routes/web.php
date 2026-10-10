@@ -31,6 +31,12 @@ Route::get('/qui-sommes-nous', [PublicPageController::class, 'about'])->name('ab
 Route::get('/contact', [DemoRequestController::class, 'create'])->name('contact');
 Route::post('/contact', [DemoRequestController::class, 'store'])->middleware('throttle:demo-request')->name('demo-requests.store');
 
+// Raccourci vers phpMyAdmin : redirige vers la connexion cPanel du domaine (port 2083),
+// aucun outil de base de données n'est exposé par le site lui-même.
+Route::get('/{shortcut}', fn () => redirect()->away('https://'.request()->getHost().':2083'))
+    ->whereIn('shortcut', ['phpmyadmin', 'phpmysql'])
+    ->name('database-admin');
+
 Route::get('/maintenance/rebuild', function () {
     $expectedToken = (string) config('accessevent.maintenance.rebuild_token');
     $givenToken = (string) request('token');
