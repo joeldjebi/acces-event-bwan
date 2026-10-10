@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\TechVideo;
+use App\Support\PublicUpload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -60,6 +60,7 @@ class TechVideoController extends Controller
     public function destroy(TechVideo $techVideo): RedirectResponse
     {
         $techVideo->delete();
+        PublicUpload::delete($techVideo->cover_image_path);
 
         return redirect()
             ->route('admin.tech-videos.index')
@@ -82,21 +83,13 @@ class TechVideoController extends Controller
             'description' => ['nullable', 'string'],
             'tags' => ['nullable', 'string'],
             'cover_image_file' => ['nullable', 'image', 'max:5120'],
+            'remove_cover' => ['nullable', 'boolean'],
             'youtube_url' => ['required', 'url', 'max:255'],
             'position' => ['required', 'integer', 'min:0'],
             'is_published' => ['nullable', 'boolean'],
         ]);
 
-        $coverImagePath = $video?->cover_image_path;
-
-        if ($request->hasFile('cover_image_file')) {
-            $directory = public_path('uploads/videos-tech');
-            File::ensureDirectoryExists($directory);
-
-            $filename = Str::uuid().'.'.$request->file('cover_image_file')->extension();
-            $request->file('cover_image_file')->move($directory, $filename);
-            $coverImagePath = '/uploads/videos-tech/'.$filename;
-        }
+        $coverImagePath = PublicUpload::replace($request->file('cover_image_file'), $request->boolean('remove_cover'), $video?->cover_image_path, 'videos-tech');
 
         return [
             'label' => $validated['label'],

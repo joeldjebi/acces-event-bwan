@@ -22,7 +22,7 @@
                     <tr>
                         <th>Page</th>
                         <th>Clé</th>
-                        <th>Statut</th>
+                        <th>Sur le site</th>
                         <th>SEO</th>
                         <th></th>
                     </tr>
@@ -36,9 +36,12 @@
                             </td>
                             <td>{{ $page->key }}</td>
                             <td>
-                                <span class="status-pill {{ $page->is_published ? 'is-live' : 'is-draft' }}">
-                                    {{ $page->is_published ? 'Publiée' : 'Brouillon' }}
-                                </span>
+                                @php($publicRoute = ['home' => 'home', 'ecosystem' => 'ecosystem', 'about' => 'about', 'contact' => 'contact'][$page->key] ?? null)
+                                @if ($publicRoute)
+                                    <a href="{{ route($publicRoute) }}" class="text-link" target="_blank" rel="noopener">{{ parse_url(route($publicRoute), PHP_URL_PATH) ?: '/' }}</a>
+                                @else
+                                    <span>—</span>
+                                @endif
                             </td>
                             <td>{{ $page->seo_title ?: 'À compléter' }}</td>
                             <td class="table-actions">

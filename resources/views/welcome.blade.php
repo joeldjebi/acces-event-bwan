@@ -99,7 +99,8 @@
 
     {{-- 3. Manifeste : les mots s'illuminent au fil du défilement --}}
     <section class="home-statement">
-        <p data-word-reveal>Billetterie, contrôle d'accès, paiements, accréditation et sécurité réunis dans une seule technologie. Pour sécuriser chaque recette, fluidifier chaque entrée et garder la main sur tout l'événement.</p>
+        {{-- Texte modifiable dans l'administration (Pages › Accueil › grand texte animé). --}}
+        <p data-word-reveal>{{ trim(preg_replace('/\s+/', ' ', (string) $page->body)) ?: "Billetterie, contrôle d'accès, paiements, accréditation et sécurité réunis dans une seule technologie. Pour sécuriser chaque recette, fluidifier chaque entrée et garder la main sur tout l'événement." }}</p>
     </section>
 
     {{-- 4. Chiffres clés animés --}}

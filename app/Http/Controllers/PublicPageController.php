@@ -14,7 +14,8 @@ class PublicPageController extends Controller
         return view('pages.ecosystem', [
             'page' => SitePage::findByKey('ecosystem'),
             'applications' => PlatformApplication::query()
-                ->with('solutions')
+                // Seuls les domaines publiés sont affichés (et comptés dans les filtres).
+                ->with(['solutions' => fn ($query) => $query->published()])
                 ->published()
                 ->ordered()
                 ->get(),

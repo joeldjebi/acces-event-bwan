@@ -35,6 +35,10 @@
                     <img src="{{ $application->logo_path }}" alt="{{ $application->name }}">
                     <span>Image actuelle</span>
                 </div>
+                <label class="inline-flex items-center gap-2 text-sm font-bold text-ae-ink mt-2">
+                    <input type="checkbox" name="remove_logo" value="1" class="size-4 rounded border-ae-line text-ae-primary">
+                    Retirer le logo (les initiales de l'application s'afficheront à la place)
+                </label>
             @endif
         </div>
     </div>

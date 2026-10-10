@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\PlatformApplication;
 use App\Models\Solution;
+use App\Support\PublicUpload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -72,6 +72,7 @@ class PlatformApplicationController extends Controller
     public function destroy(PlatformApplication $application): RedirectResponse
     {
         $application->delete();
+        PublicUpload::delete($application->logo_path);
 
         return redirect()
             ->route('admin.applications.index')
@@ -94,22 +95,14 @@ class PlatformApplicationController extends Controller
             'role' => ['nullable', 'string'],
             'description' => ['nullable', 'string'],
             'logo_file' => ['nullable', 'image', 'max:5120'],
+            'remove_logo' => ['nullable', 'boolean'],
             'position' => ['required', 'integer', 'min:0'],
             'is_published' => ['nullable', 'boolean'],
             'solutions' => ['nullable', 'array'],
             'solutions.*' => ['integer', Rule::exists('solutions', 'id')],
         ]);
 
-        $logoPath = $application?->logo_path;
-
-        if ($request->hasFile('logo_file')) {
-            $directory = public_path('uploads/applications');
-            File::ensureDirectoryExists($directory);
-
-            $filename = Str::uuid().'.'.$request->file('logo_file')->extension();
-            $request->file('logo_file')->move($directory, $filename);
-            $logoPath = '/uploads/applications/'.$filename;
-        }
+        $logoPath = PublicUpload::replace($request->file('logo_file'), $request->boolean('remove_logo'), $application?->logo_path, 'applications');
 
         return [
             'application' => [

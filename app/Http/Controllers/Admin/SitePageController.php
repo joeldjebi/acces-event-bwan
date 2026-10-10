@@ -36,12 +36,13 @@ class SitePageController extends Controller
             'cta_url' => ['nullable', 'string', 'max:255'],
             'seo_title' => ['nullable', 'string', 'max:255'],
             'seo_description' => ['nullable', 'string'],
-            'is_published' => ['nullable', 'boolean'],
         ]);
 
-        $data['is_published'] = $request->boolean('is_published');
-
-        $page->update($data);
+        // Seuls les champs utilisés par cette page sont modifiés ; les autres restent intacts.
+        // Ces pages forment la structure du site : elles restent toujours publiées.
+        $page->update(collect($data)
+            ->only(['name', 'seo_title', 'seo_description', ...array_keys($page->editableFields())])
+            ->all());
 
         return redirect()
             ->route('admin.pages.edit', $page)

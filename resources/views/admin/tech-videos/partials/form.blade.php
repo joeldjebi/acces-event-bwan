@@ -56,6 +56,10 @@
                     <img src="{{ $video->cover_image_path }}" alt="{{ $video->label }}">
                     <span>Image actuelle</span>
                 </div>
+                <label class="inline-flex items-center gap-2 text-sm font-bold text-ae-ink mt-2">
+                    <input type="checkbox" name="remove_cover" value="1" class="size-4 rounded border-ae-line text-ae-primary">
+                    Retirer l'image (la miniature YouTube s'affichera si le lien est une vidéo)
+                </label>
             @endif
         </div>
     </div>

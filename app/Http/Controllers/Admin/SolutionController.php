@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Solution;
+use App\Support\PublicUpload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -73,6 +73,7 @@ class SolutionController extends Controller
     public function destroy(Solution $solution): RedirectResponse
     {
         $solution->delete();
+        PublicUpload::delete($solution->image_path);
 
         return redirect()
             ->route('admin.solutions.index')
@@ -96,6 +97,7 @@ class SolutionController extends Controller
             'short_description' => ['nullable', 'string'],
             'content' => ['nullable', 'string'],
             'image_file' => ['nullable', 'image', 'max:5120'],
+            'remove_image' => ['nullable', 'boolean'],
             'position' => ['required', 'integer', 'min:0'],
             'is_published' => ['nullable', 'boolean'],
             'benefits' => ['nullable', 'string'],
@@ -104,16 +106,7 @@ class SolutionController extends Controller
 
         $slug = $validated['slug'] ?: Str::slug($validated['title']);
 
-        $imagePath = $solution?->image_path;
-
-        if ($request->hasFile('image_file')) {
-            $directory = public_path('uploads/domaines');
-            File::ensureDirectoryExists($directory);
-
-            $filename = Str::uuid().'.'.$request->file('image_file')->extension();
-            $request->file('image_file')->move($directory, $filename);
-            $imagePath = '/uploads/domaines/'.$filename;
-        }
+        $imagePath = PublicUpload::replace($request->file('image_file'), $request->boolean('remove_image'), $solution?->image_path, 'domaines');
 
         return [
             'solution' => [

@@ -1,6 +1,6 @@
 @extends('layouts.public', [
     'title' => 'Solutions',
-    'metaDescription' => 'Les douze domaines ACCÈS EVENT pour la billetterie, le contrôle, les paiements et la sécurité événementielle.',
+    'metaDescription' => 'Les '.$solutions->count().' domaines ACCÈS EVENT pour la billetterie, le contrôle, les paiements et la sécurité événementielle.',
     'canonicalUrl' => route('solutions.index'),
     'bodyClass' => 'page-clean',
 ])

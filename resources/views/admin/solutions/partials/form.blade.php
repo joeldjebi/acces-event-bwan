@@ -54,6 +54,10 @@
                 <img src="{{ $solution->image_path }}" alt="{{ $solution->title }}">
                 <span>Image actuelle</span>
             </div>
+            <label class="inline-flex items-center gap-2 text-sm font-bold text-ae-ink mt-2">
+                <input type="checkbox" name="remove_image" value="1" class="size-4 rounded border-ae-line text-ae-primary">
+                Retirer l'image (le pictogramme du domaine s'affichera à la place)
+            </label>
         @endif
     </div>
 
